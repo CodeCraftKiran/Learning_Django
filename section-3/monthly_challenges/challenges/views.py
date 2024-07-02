@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse
 from django.http import HttpResponseNotFound, HttpResponseRedirect
+from django.urls import reverse
 
 monthly_challengs = {
     "january":"One month without alcohol and soda.",
@@ -16,17 +17,32 @@ monthly_challengs = {
     "december":"One month of running 1 mile each day.",
 }
 
+
 # Create your views here.
+def index(request):
+    list_item = ""
+    months = monthly_challengs.keys()
+    for month in months:
+        capitalize_month = month.capitalize()
+        month_path = reverse("name_of_month", args=[month])
+        list_item += f"<li><a href={month_path}>{capitalize_month}</a></li>"
+
+    response_data = f"<ul>{list_item}</ul>"
+    return HttpResponse(response_data)
+
+
 def challenge_month_by_number(request, month):
     all_month = list(monthly_challengs.keys())
     if month > len(all_month):
         return HttpResponseNotFound("There are only 12 months in a year")
     redirect_month = all_month[month-1]
-    return HttpResponseRedirect("/challenges/" + redirect_month)
+    redirect_path = reverse("name_of_month", args=[redirect_month])
+    return HttpResponseRedirect(redirect_path)
 
 def challenge_month(request, month):
     try:
         challenge = monthly_challengs[month]
-        return HttpResponse(challenge)
+        response_html = f"<h1>{challenge}</h1>"
+        return HttpResponse(response_html)
     except:
-        return HttpResponseNotFound("Please check the spelling.")
+        return HttpResponseNotFound("<h1>Please check the spelling.</h1>")
