@@ -6,17 +6,12 @@
 {% endblock  %}
 
 {% block css_file %}
+    <link rel="stylesheet" href="{% static "blog/post.css" %}" >
+
     <link rel="stylesheet" href="{% static "blog/index.css" %}" >
 {% endblock  %}
 
 {% block content %}
-    <header id="main-navigation">
-        <h1><a href="">Kiran's Blog</a></h1>
-        <nav>
-            <a href="">All Posts</a>
-        </nav>
-    </header>
-
     <section id="welcome">
         <header>
             <img src="{% static "blog/images/girl.jfif" %}" alt="Kiran- The Authorof This Blog.">
@@ -29,24 +24,16 @@
         <h2>My Latest Thoughts<h2>
 
         <ul>
-            <li>
-                <article class="post">
-                    <a href="">
-                        <img src="{% static "blog/images/girl.jfif" %}" alt="mountain Hiking" />
-                        <div class ="post__content">
-                            <h3>Mountain Hiking</h3>
-                            <p>There's nothing the views uou get whtern hiking in the mountain.</p>
-                        </div>    
-                    </a>    
-                </article>
-            </li>    
+            {% for post in posts %}
+                {% include "blog/include/post.html" %}
+            {% endfor %}
         </ul>
 
     </section>
 
     <section id="about">
         <h2>What I Do.</h2>
-        <p>There's nothing the views uou get whtern hiking in the mountain.</p>
-        <p>There's nothing the views uou get whtern hiking in the mountain.</p>
+        <p>I am Developer and a life long learner.</p>
+        <p>I like painting, dancing, singing, eating healthy and developing</p>
     </section>
 {% endblock  %}
