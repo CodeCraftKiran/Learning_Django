@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static%} 
+
+{% block title %}
+    Main Page
+{% endblock  %}
+
+{% block css_file %}
+    <link rel="stylesheet" href="{% static "blog/post.css" %}" >
+
+    <link rel="stylesheet" href="{% static "blog/index.css" %}" >
+{% endblock  %}
+
+{% block content %}
+    <section id="welcome">
+        <header>
+            <img src="{% static "blog/images/girl.jfif" %}" alt="Kiran- The Authorof This Blog.">
+            <h2>KIRAN'S BLOG</h2>
+        </header>
+        <p>Hi, I am Kiran and I love to Blog about healthy habits and the world!</p>
+    </section>
+
+    <section id="latest-posts">
+        <h2>My Latest Thoughts<h2>
+
+        <ul>
+            {% for post in posts %}
+                {% include "blog/include/post.html" %}
+            {% endfor %}
+        </ul>
+
+    </section>
+
+    <section id="about">
+        <h2>What I Do.</h2>
+        <p>I am Developer and a life long learner.</p>
+        <p>I like painting, dancing, singing, eating healthy and developing</p>
+    </section>
+{% endblock  %}
