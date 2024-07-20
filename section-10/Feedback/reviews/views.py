@@ -1,8 +1,11 @@
+from typing import Any
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .forms import reviewForm
 from .models import Review
 from django.views import View
+from django.views.generic.base import TemplateView
+from .models import Review
 
 # Create your views here.
 class ReviewView(View):
@@ -26,8 +29,10 @@ class ReviewView(View):
 # def review(request):
 #     if request.method == "POST":
 #         form = reviewForm(request.POST)
+##########2
 #         if form.is_valid():
 #             form.save()
+##########1
 #             # data = form.cleaned_data
 #             # review = Review(
 #             #     user_name = data['user_name'],
@@ -43,7 +48,7 @@ class ReviewView(View):
 #         "form": form,
 #     })
     
-########### to insert update a new data with the new data
+###########3        to insert update a new data with the new data
 # def review(request):
 #     if request.method == "POST":
 #         existing_data = Review.objects.get(pk=1)
@@ -58,6 +63,32 @@ class ReviewView(View):
 #         "form": form,
 #     })
 
+##############################################################################################################
+#####1
+# def thank_you(request):
+#     return render(request, "reviews/thank_you.html")
 
-def thank_you(request):
-    return render(request, "reviews/thank_you.html")
+#####2
+# class ThankYouView(View):
+#     def get(self, request):
+#         return render(request, "reviews/thank_you.html")
+
+#####3
+class ThankYouView(TemplateView):
+    template_name = "reviews/thank_you.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["message"] = "This works"
+        return context
+    
+    
+class ReviewListView(TemplateView):
+    template_name = "reviews/review_list.html"
+    
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        reviews = Review.objects.all()
+        context["reviews"] = reviews
+        return context
+        
