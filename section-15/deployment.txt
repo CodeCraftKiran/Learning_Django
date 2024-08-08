@@ -1,0 +1,56 @@
+Setting changes while uploading our Project Live.
+
+    setting.py
+
+        SECRET_KEY - should be kept in an environment variable.
+
+        DEBUG - change it to False.
+
+        First -> from os import getenv
+        ALLOWED_HOSTs - [
+            getenv("APP_HOST", "localhost")
+        ]
+
+        STATIC_ROOT - BASE_DIR / "staticfiles"        # We need to add this command during production. All our static files will go into this folder.
+        keep our static files including javascript and user upload static files in separate folders for security purposes.
+
+    Then run command python manage.py collectstaticthis will collect all our static files and copy them into staticfiles folder mentioned in settings.py.
+        1 METHOD OF CONNECT STATIC FILE IS ADDITIONAL SETTINGS IN main URL.PY
+        + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \   
+        + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+    python -m venv /path/to/new/virtual/environment         #Add a virtual env before deployment.  
+
+    python -m pip freeze > requirements.txt     # add a requirements file 
+
+    If we are using AWS --> Elastic Beanstalk  
+        --> add a folder at projext level named "ebextensions"
+            --> add file named "django.config" and write:
+
+                option_settings:
+                aws:elasticbeanstalk:container:python:
+                WSGIPath: my_site.wsgi:application
+
+    Make zip of all the file not of the outer folder.
+            
+
+POSTGRESql DATABASE
+
+    -> pip install psycopg2-binary
+
+    -> DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'postgresql',
+            'USER':
+            'PASSWORD':
+            'HOST':
+            'PORT':
+        }
+    }
+
+    -> Make migrations
+    -> Make migrate
+    -> create superuser again
+    ->
+
