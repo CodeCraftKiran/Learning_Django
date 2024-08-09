@@ -15,7 +15,7 @@ Setting changes while uploading our Project Live.
         keep our static files including javascript and user upload static files in separate folders for security purposes.
 
     Then run command python manage.py collectstaticthis will collect all our static files and copy them into staticfiles folder mentioned in settings.py.
-        1 METHOD OF CONNECT STATIC FILE IS ADDITIONAL SETTINGS IN main URL.PY
+  1 METHOD OF CONNECT STATIC FILE IS ADDITIONAL SETTINGS IN main URL.PY
         + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \   
         + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
@@ -33,6 +33,8 @@ Setting changes while uploading our Project Live.
 
     Make zip of all the file not of the outer folder.
             
+
+
 
 POSTGRESql DATABASE
 
@@ -54,3 +56,19 @@ POSTGRESql DATABASE
     -> create superuser again
     ->
 
+
+
+2 METHOD OF CONNECTING STATIC FILE IS "CONFIGURE WEB SERVER TO SERVE STATIC FILES AND DJANGO APP SEPERATELY".
+ If we are using AWS --> Elastic Beanstalk  
+        --> add a folder at projext level named "ebextensions"
+            --> add file named "django.config" and "static-files.config" write:
+		--> watch django video number 219
+
+	remove these lines from urls.py
+		+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \   
+        	+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
+
+
+
+3 METHOD OF CONNECTING STATIC FILE IS "USE DEDICATED SERVICE/ SERVER FOR STATIC AND UPLOAD FILES.
+	--> Django video number 220 and 221 udemy. (Best way in all three)
